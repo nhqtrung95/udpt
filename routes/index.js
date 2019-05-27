@@ -1,13 +1,6 @@
-const express = require('express');
-const router = express.Router();
-
-// const collectionRouter = require('./collectionRouter');
-// var taskRouter = require('./taskRouter');
-
-router.get('/', function(req, res) {
-    res.render('index');
-})
-// router.use('/collections', collectionRouter);
-// router.use('/tasks', taskRouter);
-
+'use strict';
+var router = require('express').Router();
 module.exports = router;
+
+router.use('/api', require('./api'));
+router.use('/', require('./routes'));
