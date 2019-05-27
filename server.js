@@ -9,6 +9,9 @@ var db = require('./models');
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 
+//set public folder to serve static assets
+app.use(express.static(__dirname + '/public'));
+
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({
     extended: true
