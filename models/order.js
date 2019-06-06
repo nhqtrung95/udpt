@@ -16,7 +16,7 @@ var stripe = require("stripe")("sk_test_FdOK9Gv2DntFbqPsbYht0fqz");
 
 
 module.exports = function(db) {
-    db.define('order', {
+    let Order = db.define('order', {
         orderTotal: {
             type: Sequelize.FLOAT,
             defaultValue: 0.00
@@ -98,4 +98,5 @@ module.exports = function(db) {
             }
         }
     });
+    return Order;
 };

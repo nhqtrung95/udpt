@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize');
 
 module.exports = function (db) { 
-	db.define('address', {
+	let Address = db.define('address', {
 		name: {
 			type: Sequelize.STRING,
 			allowNull: false
@@ -28,4 +28,5 @@ module.exports = function (db) {
 			}
 		}
 	});
+	return Address;
 }

@@ -5,7 +5,7 @@ var Sequelize = require('sequelize');
 
 module.exports = function (db) {
 
-    db.define('user', {
+    let User = db.define('user', {
         email: {
             type: Sequelize.STRING,
             unique: true,
@@ -27,44 +27,39 @@ module.exports = function (db) {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         }
-    },
-    {
-        instanceMethods: {
-            sanitize: function () {
-                return _.omit(this.toJSON(), ['password', 'salt']);
-            },
-            correctPassword: function (candidatePassword) {
-                return this.Model.encryptPassword(candidatePassword, this.salt) === this.password;
-            }
-        },
-        classMethods: {
-            generateSalt: function () {
-                return crypto.randomBytes(16).toString('base64');
-            },
-            encryptPassword: function (plainText, salt) {
-                var hash = crypto.createHash('sha1');
-                hash.update(plainText);
-                hash.update(salt);
-                return hash.digest('hex');
-            }
-        },
+    }, {
         hooks: {
             beforeCreate: function (user) {
                 if (user.changed('password')) {
-                    user.salt = user.Model.generateSalt();
-                    user.password = user.Model.encryptPassword(user.password, user.salt);
+                    user.salt = user.generateSalt();
+                    user.password = user.encryptPassword(user.password, user.salt);
                 }
             },
             beforeUpdate: function (user) {
                 if (user.changed('password')) {
-                    user.salt = user.Model.generateSalt();
-                    user.password = user.Model.encryptPassword(user.password, user.salt);
+                    user.salt = user.generateSalt();
+                    user.password = user.encryptPassword(user.password, user.salt);
                 }
             }
         }
-    });
+    })
 
+    User.prototype.generateSalt = function () {
+        return crypto.randomBytes(16).toString('base64');
+    }
 
+    User.prototype.encryptPassword = function (plainText, salt) {
+        var hash = crypto.createHash('sha1');
+        hash.update(plainText);
+        hash.update(salt);
+        return hash.digest('hex');
+    }
+
+    User.prototype.correctPassword = function(candidatePassword) {
+        return this.encryptPassword(candidatePassword, this.salt) === this.password;
+    }
+
+    return User;
 
 };
 

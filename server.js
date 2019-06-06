@@ -3,8 +3,17 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
+const passportConfig = require('./config/passport');
+const session = require('express-session')
 
 var db = require('./models');
+
+app.use(session({
+  secret: 'something',
+  cookie: {
+      maxAge: 1000*60*60*24 //đơn vị là milisecond
+  }
+}));
 
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -26,7 +35,10 @@ app.use(methodOverride(function (req, res) {
     }
   }));
 
+passportConfig(app);
+
 const router = require('./routes/index');
+
 app.use(router);
 
 app.set('view engine', 'ejs');

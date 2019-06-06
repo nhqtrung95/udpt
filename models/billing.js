@@ -7,7 +7,7 @@
 var Sequelize = require('sequelize');
 
 module.exports = function (db) {
-	db.define('billing', {
+	let Billing = db.define('billing', {
 		name: {
 			type: Sequelize.STRING,
 			allowNull: false
@@ -32,4 +32,5 @@ module.exports = function (db) {
 			}
 		}
 	});
+	return Billing;
 }

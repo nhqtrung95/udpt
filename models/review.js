@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize');
 
 module.exports = function (db) { 
-	db.define('review', {
+	let Review = db.define('review', {
 		title: {
 			type: Sequelize.STRING,
 			validate: {
@@ -24,4 +24,5 @@ module.exports = function (db) {
 			}
 		}
 	})
+	return Review;
 }

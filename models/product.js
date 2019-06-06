@@ -3,7 +3,7 @@
 var Sequelize = require('sequelize');
 
 module.exports = function (db) { 
-	db.define('product', {
+	let Product = db.define('product', {
 		name: {
 			type: Sequelize.STRING,
 			allowNull: false,
@@ -14,27 +14,29 @@ module.exports = function (db) {
 			defaultValue: '/defaultproduct.jpg'
 		},
 		price: {
-			type: Sequelize.FLOAT,
+			type: Sequelize.INTEGER,
 			allowNull: false,
 			validate: {
-				min: 0.01
+				min: 1
 			}
+		},
+		rebate: {
+			type: Sequelize.INTEGER,
+			defaultValue: 0
 		},
 		brand: {
 			type: Sequelize.STRING,
-			allowNull: false
+			allowNull: true
 		},
 		description: {
 			type: Sequelize.TEXT,
-			allowNull: false
-		},
-		quantity: {
-			type: Sequelize.INTEGER,
-			allowNull: false
+			allowNull: true
 		},
 		isAvailable: {
 			type: Sequelize.BOOLEAN,
 			defaultValue: true
 		}
 	});
+
+	return Product;
 }
