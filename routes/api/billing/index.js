@@ -1,7 +1,7 @@
 'use strict';
 
 var router = require('express').Router()
-var db = require('../../models')
+var db = require('../../../models')
 var Billing = db.model('billing');
 var User = db.model('user');
 var Promise = require('sequelize').Promise;

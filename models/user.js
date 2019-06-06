@@ -18,9 +18,10 @@ module.exports = function (db) {
         salt: {
             type: Sequelize.STRING
         },
-        isAdmin: {
-            type: Sequelize.BOOLEAN,
-            defaultValue: false
+        role: {
+            type: Sequelize.ENUM,
+            values: ['client', 'staff', 'admin'],
+            defaultValue: 'client'
         },
         resetPassword: {
             type: Sequelize.BOOLEAN,

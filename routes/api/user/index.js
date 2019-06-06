@@ -1,7 +1,7 @@
 'use strict';
 
 var router = require('express').Router()
-var db = require('../../models')
+var db = require('../../../models')
 var User = db.model('user')
 var Order = db.model('order');
 var Address = db.model('address');

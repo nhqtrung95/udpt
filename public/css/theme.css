@@ -1,3 +1,16 @@
 .header-top {
     border-bottom: 1px solid red;
 }
+
+.products-thumbnail {
+    overflow: hidden;
+}
+
+.products-thumbnail img {
+    max-height: 200px;
+}
+
+.product-price .old-price {
+    color: rgb(120, 120, 120);
+    text-decoration: line-through;
+}
